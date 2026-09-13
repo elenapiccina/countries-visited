@@ -1,0 +1,577 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiet Luxury Countries Visited & Travel Archive 🕊️</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Alice&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Outfit:wght@300;400;500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-card: rgba(253, 251, 248, 0.98);
+            --bg-subtle: #F7F3EE;
+            --border-soft: #E6DDD5;
+            --border-grid: #F0EAE3;
+            
+            /* High-End Nude Beige Palette */
+            --header-beige-start: #EFE6DD;
+            --header-beige-mid: #E5D9CC;
+            --header-beige-end: #DFD3C6;
+            
+            --accent-nude: #B8A18F;
+            --accent-nude-dark: #8C7565;
+            --accent-deep: #3D342E;
+            --accent-soft-bg: rgba(184, 161, 143, 0.12);
+            
+            --text-dark: #3D342E;
+            --text-muted: #8A7C72;
+            --shadow-subtle: 0 10px 30px rgba(140, 122, 107, 0.08);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Alice', Georgia, serif;
+            background-color: transparent;
+            padding: 8px;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            min-height: 100vh;
+            color: var(--text-dark);
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .widget-container {
+            width: 100%;
+            max-width: 840px;
+            background: var(--bg-card);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid var(--border-soft);
+            border-radius: 18px;
+            padding: 18px 22px;
+            box-shadow: var(--shadow-subtle);
+        }
+
+        /* Header Banner */
+        .header-banner {
+            background: linear-gradient(135deg, var(--header-beige-start), var(--header-beige-mid), var(--header-beige-end));
+            padding: 14px 20px;
+            border-radius: 12px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 14px;
+            border: 1px solid var(--border-soft);
+        }
+
+        .header-left {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+        }
+
+        .header-title {
+            font-size: 1.15rem;
+            letter-spacing: 2.5px;
+            color: var(--accent-deep);
+            text-transform: uppercase;
+            font-weight: bold;
+        }
+
+        .header-subtitle {
+            font-family: 'Cormorant Garamond', serif;
+            font-style: italic;
+            font-size: 0.95rem;
+            color: var(--accent-nude-dark);
+        }
+
+        .badge-status {
+            background: #FFFFFF;
+            border: 1px solid var(--border-soft);
+            border-radius: 20px;
+            padding: 4px 14px;
+            font-family: 'Outfit', sans-serif;
+            font-size: 0.72rem;
+            font-weight: 500;
+            color: var(--accent-nude-dark);
+            letter-spacing: 0.5px;
+        }
+
+        /* Stats Bar */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            margin-bottom: 16px;
+        }
+
+        .stat-card {
+            background: var(--bg-subtle);
+            border: 1px solid var(--border-grid);
+            border-radius: 10px;
+            padding: 10px 14px;
+            text-align: center;
+        }
+
+        .stat-value {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.35rem;
+            font-weight: 600;
+            color: var(--accent-deep);
+            line-height: 1.1;
+        }
+
+        .stat-label {
+            font-family: 'Outfit', sans-serif;
+            font-size: 0.64rem;
+            letter-spacing: 1.2px;
+            text-transform: uppercase;
+            color: var(--accent-nude-dark);
+            margin-top: 2px;
+        }
+
+        /* Focus / Next Journey Banner */
+        .focus-box {
+            background: var(--bg-subtle);
+            border-left: 3px solid var(--accent-nude);
+            border-radius: 8px;
+            padding: 10px 14px;
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .focus-label {
+            font-family: 'Outfit', sans-serif;
+            font-size: 0.68rem;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            color: var(--accent-nude-dark);
+            font-weight: 600;
+            white-space: nowrap;
+        }
+
+        .focus-input {
+            width: 100%;
+            border: none;
+            outline: none;
+            background: transparent;
+            font-family: 'Cormorant Garamond', serif;
+            font-style: italic;
+            font-size: 1.05rem;
+            color: var(--text-dark);
+        }
+
+        /* Layout Grid */
+        .planner-grid {
+            display: grid;
+            grid-template-columns: 1.1fr 0.9fr;
+            gap: 16px;
+            margin-bottom: 14px;
+        }
+
+        @media (max-width: 680px) {
+            .planner-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Section Cards */
+        .section-card {
+            background: #FFFFFF;
+            border: 1px solid var(--border-grid);
+            border-radius: 12px;
+            padding: 12px 14px;
+        }
+
+        .section-title {
+            font-family: 'Outfit', sans-serif;
+            font-size: 0.72rem;
+            letter-spacing: 1.8px;
+            text-transform: uppercase;
+            color: var(--accent-nude-dark);
+            font-weight: 600;
+            margin-bottom: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        /* Item Lists */
+        .item-list {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            max-height: 250px;
+            overflow-y: auto;
+            padding-right: 2px;
+        }
+
+        .planner-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 6px 8px;
+            border-radius: 6px;
+            background: #FFFFFF;
+            border: 1px solid var(--border-grid);
+            transition: all 0.15s ease;
+        }
+
+        .planner-item:hover {
+            border-color: var(--border-soft);
+            background: var(--bg-subtle);
+        }
+
+        .planner-text {
+            width: 100%;
+            border: none;
+            outline: none;
+            background: transparent;
+            font-family: 'Alice', serif;
+            font-size: 0.8rem;
+            color: var(--text-dark);
+        }
+
+        .tag-badge {
+            font-family: 'Outfit', sans-serif;
+            font-size: 0.65rem;
+            color: var(--accent-nude-dark);
+            background: var(--accent-soft-bg);
+            padding: 2px 7px;
+            border-radius: 8px;
+            white-space: nowrap;
+        }
+
+        /* Sub-Input area */
+        .add-box {
+            display: flex;
+            gap: 6px;
+            margin-top: 8px;
+        }
+
+        .add-input {
+            flex: 1;
+            border: 1px solid var(--border-soft);
+            border-radius: 6px;
+            padding: 6px 10px;
+            font-family: 'Alice', serif;
+            font-size: 0.76rem;
+            outline: none;
+            background: #FAF8F5;
+        }
+
+        .btn-add {
+            background: var(--accent-nude);
+            color: #FFFFFF;
+            border: none;
+            border-radius: 6px;
+            padding: 6px 12px;
+            font-family: 'Alice', serif;
+            font-size: 0.74rem;
+            cursor: pointer;
+            transition: background 0.15s;
+        }
+
+        .btn-add:hover {
+            background: var(--accent-nude-dark);
+        }
+
+        .btn-del {
+            background: none;
+            border: none;
+            color: #C2B4AA;
+            cursor: pointer;
+            font-size: 0.72rem;
+            opacity: 0.5;
+            transition: opacity 0.15s;
+        }
+
+        .planner-item:hover .btn-del {
+            opacity: 1;
+        }
+
+        .btn-del:hover {
+            color: #A84848;
+        }
+
+        /* Footer Bar */
+        .footer-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 10px;
+            padding-top: 8px;
+            border-top: 1px solid var(--border-grid);
+        }
+
+        .btn-reset {
+            background: none;
+            border: none;
+            color: var(--text-muted);
+            font-family: 'Alice', serif;
+            font-size: 0.72rem;
+            cursor: pointer;
+            transition: color 0.15s;
+        }
+
+        .btn-reset:hover {
+            color: var(--accent-nude-dark);
+        }
+    </style>
+</head>
+<body>
+
+<div class="widget-container">
+    <!-- Header Banner -->
+    <div class="header-banner">
+        <div class="header-left">
+            <span class="header-title">TRAVEL ARCHIVE</span>
+            <span class="header-subtitle">Explored Realms, Cities & Cultural Journeys</span>
+        </div>
+        <span class="badge-status" id="worldPctBadge">0.0% of World</span>
+    </div>
+
+    <!-- Stats Counter Bar -->
+    <div class="stats-grid">
+        <div class="stat-card">
+            <div class="stat-value" id="visitedCount">0</div>
+            <div class="stat-label">Countries Visited</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-value" id="wishlistCount">0</div>
+            <div class="stat-label">Wishlist & Intentions</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-value" id="favoriteCities">195</div>
+            <div class="stat-label">UN World Total</div>
+        </div>
+    </div>
+
+    <!-- Next Destination / Anchor -->
+    <div class="focus-box">
+        <span class="focus-label">Next Journey</span>
+        <input type="text" id="nextJourney" class="focus-input" placeholder="Istanbul, Bosphorus tea gardens & historic district exploration..." onchange="saveTravelData()">
+    </div>
+
+    <!-- Main Grid Structure -->
+    <div class="planner-grid">
+        <!-- Visited Countries & Cities -->
+        <div class="section-card">
+            <div class="section-title">
+                <span>Visited Countries & Cities</span>
+                <span style="font-size: 0.65rem; color: var(--text-muted);">Explored</span>
+            </div>
+            <div class="item-list" id="visitedList">
+                <!-- Dynamic Visited Items -->
+            </div>
+            <div class="add-box">
+                <input type="text" id="visitedTagInput" style="width: 60px;" class="add-input" placeholder="Year">
+                <input type="text" id="visitedInput" class="add-input" placeholder="Country / City..." onkeypress="if(event.key==='Enter') addVisitedCountry()">
+                <button class="btn-add" onclick="addVisitedCountry()">+ Add</button>
+            </div>
+        </div>
+
+        <!-- Travel Wishlist & Intentions -->
+        <div class="section-card">
+            <div class="section-title">
+                <span>Bucket List & Intentions</span>
+                <span style="font-size: 0.65rem; color: var(--text-muted);">Future Voyages</span>
+            </div>
+            <div class="item-list" id="wishlistList">
+                <!-- Dynamic Wishlist Items -->
+            </div>
+            <div class="add-box">
+                <input type="text" id="wishlistTagInput" style="width: 60px;" class="add-input" placeholder="Season">
+                <input type="text" id="wishlistInput" class="add-input" placeholder="Destination..." onkeypress="if(event.key==='Enter') addWishlistCountry()">
+                <button class="btn-add" onclick="addWishlistCountry()">+ Add</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="footer-bar">
+        <span style="font-size: 0.68rem; color: var(--text-muted); font-style: italic;">
+            "The world is a book and those who do not travel read only one page."
+        </span>
+        <button class="btn-reset" onclick="resetTravelPlanner()">🔄 reset travel archive</button>
+    </div>
+</div>
+
+<script>
+    const TOTAL_WORLD_COUNTRIES = 195;
+
+    const defaultTravelData = {
+        nextJourney: "Istanbul — Tea at Setüstü Çay Bahçesi & historic palaces",
+        visited: [
+            { id: 1, tag: "2023", name: "Turkey (Istanbul, Antalya)" },
+            { id: 2, tag: "2024", name: "China (Shanghai)" },
+            { id: 3, tag: "2024", name: "Macao" },
+            { id: 4, tag: "2025", name: "United Kingdom (London)" },
+            { id: 5, tag: "2025", name: "France (Paris)" }
+        ],
+        wishlist: [
+            { id: 101, tag: "Autumn", name: "Italy (Florence & Amalfi)" },
+            { id: 102, tag: "Spring", name: "Japan (Kyoto & Tokyo)" },
+            { id: 103, tag: "Summer", name: "Switzerland (Interlaken)" }
+        ]
+    };
+
+    function loadTravelData() {
+        try {
+            const saved = localStorage.getItem('quiet_luxury_travel_v1');
+            return saved ? JSON.parse(saved) : defaultTravelData;
+        } catch (e) {
+            return defaultTravelData;
+        }
+    }
+
+    let travelData = loadTravelData();
+
+    function saveTravelData() {
+        travelData.nextJourney = document.getElementById('nextJourney').value;
+        try {
+            localStorage.setItem('quiet_luxury_travel_v1', JSON.stringify(travelData));
+        } catch (e) {}
+        updateStats();
+    }
+
+    function updateStats() {
+        const count = travelData.visited.length;
+        const wishCount = travelData.wishlist.length;
+        const pct = ((count / TOTAL_WORLD_COUNTRIES) * 100).toFixed(1);
+
+        document.getElementById('visitedCount').innerText = count;
+        document.getElementById('wishlistCount').innerText = wishCount;
+        document.getElementById('worldPctBadge').innerText = `${pct}% of World`;
+    }
+
+    function renderVisited() {
+        const container = document.getElementById('visitedList');
+        container.innerHTML = '';
+
+        travelData.visited.forEach(item => {
+            const div = document.createElement('div');
+            div.className = 'planner-item';
+            div.innerHTML = `
+                <span class="tag-badge">${item.tag || 'Visited'}</span>
+                <input type="text" class="planner-text" value="${item.name}" onchange="updateVisitedName(${item.id}, this.value)">
+                <button class="btn-del" onclick="deleteVisited(${item.id})">✕</button>
+            `;
+            container.appendChild(div);
+        });
+    }
+
+    function addVisitedCountry() {
+        const tagInput = document.getElementById('visitedTagInput');
+        const nameInput = document.getElementById('visitedInput');
+        const name = nameInput.value.trim();
+        const tag = tagInput.value.trim();
+
+        if (!name) return;
+
+        travelData.visited.push({
+            id: Date.now(),
+            tag: tag || 'Visited',
+            name: name
+        });
+
+        nameInput.value = '';
+        tagInput.value = '';
+        saveTravelData();
+        renderVisited();
+    }
+
+    function updateVisitedName(id, newName) {
+        const item = travelData.visited.find(v => v.id === id);
+        if (item && newName.trim()) {
+            item.name = newName.trim();
+            saveTravelData();
+        }
+    }
+
+    function deleteVisited(id) {
+        travelData.visited = travelData.visited.filter(v => v.id !== id);
+        saveTravelData();
+        renderVisited();
+    }
+
+    function renderWishlist() {
+        const container = document.getElementById('wishlistList');
+        container.innerHTML = '';
+
+        travelData.wishlist.forEach(item => {
+            const div = document.createElement('div');
+            div.className = 'planner-item';
+            div.innerHTML = `
+                <span class="tag-badge">${item.tag || 'Wish'}</span>
+                <input type="text" class="planner-text" value="${item.name}" onchange="updateWishlistName(${item.id}, this.value)">
+                <button class="btn-del" onclick="deleteWishlist(${item.id})">✕</button>
+            `;
+            container.appendChild(div);
+        });
+    }
+
+    function addWishlistCountry() {
+        const tagInput = document.getElementById('wishlistTagInput');
+        const nameInput = document.getElementById('wishlistInput');
+        const name = nameInput.value.trim();
+        const tag = tagInput.value.trim();
+
+        if (!name) return;
+
+        travelData.wishlist.push({
+            id: Date.now(),
+            tag: tag || 'Wish',
+            name: name
+        });
+
+        nameInput.value = '';
+        tagInput.value = '';
+        saveTravelData();
+        renderWishlist();
+    }
+
+    function updateWishlistName(id, newName) {
+        const item = travelData.wishlist.find(w => w.id === id);
+        if (item && newName.trim()) {
+            item.name = newName.trim();
+            saveTravelData();
+        }
+    }
+
+    function deleteWishlist(id) {
+        travelData.wishlist = travelData.wishlist.filter(w => w.id !== id);
+        saveTravelData();
+        renderWishlist();
+    }
+
+    function resetTravelPlanner() {
+        if (confirm("Reset travel archive to default?")) {
+            travelData = JSON.parse(JSON.stringify(defaultTravelData));
+            saveTravelData();
+            initData();
+        }
+    }
+
+    function initData() {
+        document.getElementById('nextJourney').value = travelData.nextJourney || '';
+        renderVisited();
+        renderWishlist();
+        updateStats();
+    }
+
+    // Initialize
+    initData();
+</script>
+
+</body>
+</html>
