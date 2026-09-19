@@ -1,577 +1,667 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Quiet Luxury Countries Visited & Travel Archive 🕊️</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Alice&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Outfit:wght@300;400;500&display=swap" rel="stylesheet">
-    <style>
-        :root {
-            --bg-card: rgba(253, 251, 248, 0.98);
-            --bg-subtle: #F7F3EE;
-            --border-soft: #E6DDD5;
-            --border-grid: #F0EAE3;
-            
-            /* High-End Nude Beige Palette */
-            --header-beige-start: #EFE6DD;
-            --header-beige-mid: #E5D9CC;
-            --header-beige-end: #DFD3C6;
-            
-            --accent-nude: #B8A18F;
-            --accent-nude-dark: #8C7565;
-            --accent-deep: #3D342E;
-            --accent-soft-bg: rgba(184, 161, 143, 0.12);
-            
-            --text-dark: #3D342E;
-            --text-muted: #8A7C72;
-            --shadow-subtle: 0 10px 30px rgba(140, 122, 107, 0.08);
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Aesthetic Travel Archive Widget</title>
 
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
+<!-- Google Fonts: Cormorant Garamond & Inter -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,400;1,600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 
-        body {
-            font-family: 'Alice', Georgia, serif;
-            background-color: transparent;
-            padding: 8px;
-            display: flex;
-            justify-content: center;
-            align-items: flex-start;
-            min-height: 100vh;
-            color: var(--text-dark);
-            -webkit-font-smoothing: antialiased;
-        }
+<style>
+  :root {
+    --bg-page: #FAF8F5;
+    --bg-card: #FFFFFF;
+    --border-global: #EAE3D8;
+    
+    --text-title: #2B2520;
+    --text-body: #4A433B;
+    --text-muted: #887C70;
+    --text-sub: #A09384;
+    
+    /* 4 Distinct Nude Shades */
+    --shade-visited-bg: #F8F4EE;
+    --shade-visited-border: #E8DFC3;
+    --shade-visited-pill: #EEE6D8;
+    --btn-visited: #B09D8B;
 
-        .widget-container {
-            width: 100%;
-            max-width: 840px;
-            background: var(--bg-card);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
-            border: 1px solid var(--border-soft);
-            border-radius: 18px;
-            padding: 18px 22px;
-            box-shadow: var(--shadow-subtle);
-        }
+    --shade-next-bg: #F3EFE6;
+    --shade-next-border: #E3D9C8;
+    --shade-next-pill: #E7DDCB;
+    --btn-next: #A4907C;
 
-        /* Header Banner */
-        .header-banner {
-            background: linear-gradient(135deg, var(--header-beige-start), var(--header-beige-mid), var(--header-beige-end));
-            padding: 14px 20px;
-            border-radius: 12px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 14px;
-            border: 1px solid var(--border-soft);
-        }
+    --shade-wanna-bg: #EDE6D9;
+    --shade-wanna-border: #DDD0BC;
+    --shade-wanna-pill: #E1D3C0;
+    --btn-wanna: #98836E;
 
-        .header-left {
-            display: flex;
-            flex-direction: column;
-            gap: 2px;
-        }
+    --shade-revisit-bg: #E7DCDB;
+    --shade-revisit-border: #D7C6C5;
+    --shade-revisit-pill: #DAC7C6;
+    --btn-revisit: #8F7675;
 
-        .header-title {
-            font-size: 1.15rem;
-            letter-spacing: 2.5px;
-            color: var(--accent-deep);
-            text-transform: uppercase;
-            font-weight: bold;
-        }
+    --bg-banner: #EFE7DB;
+    --bg-input: #FAF8F5;
+    --border-input: #E2D7C7;
+  }
 
-        .header-subtitle {
-            font-family: 'Cormorant Garamond', serif;
-            font-style: italic;
-            font-size: 0.95rem;
-            color: var(--accent-nude-dark);
-        }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
 
-        .badge-status {
-            background: #FFFFFF;
-            border: 1px solid var(--border-soft);
-            border-radius: 20px;
-            padding: 4px 14px;
-            font-family: 'Outfit', sans-serif;
-            font-size: 0.72rem;
-            font-weight: 500;
-            color: var(--accent-nude-dark);
-            letter-spacing: 0.5px;
-        }
+  body {
+    background-color: var(--bg-page);
+    color: var(--text-body);
+    font-family: 'Inter', -apple-system, sans-serif;
+    padding: 24px;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    min-height: 100vh;
+    -webkit-font-smoothing: antialiased;
+  }
 
-        /* Stats Bar */
-        .stats-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 10px;
-            margin-bottom: 16px;
-        }
+  .archive-container {
+    width: 100%;
+    max-width: 1100px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
 
-        .stat-card {
-            background: var(--bg-subtle);
-            border: 1px solid var(--border-grid);
-            border-radius: 10px;
-            padding: 10px 14px;
-            text-align: center;
-        }
+  /* HEADER BANNER */
+  .header-card {
+    background: var(--bg-banner);
+    border-radius: 12px;
+    padding: 20px 26px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
 
-        .stat-value {
-            font-family: 'Cormorant Garamond', serif;
-            font-size: 1.35rem;
-            font-weight: 600;
-            color: var(--accent-deep);
-            line-height: 1.1;
-        }
+  .header-titles h1 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.6rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    color: var(--text-title);
+    text-transform: uppercase;
+  }
 
-        .stat-label {
-            font-family: 'Outfit', sans-serif;
-            font-size: 0.64rem;
-            letter-spacing: 1.2px;
-            text-transform: uppercase;
-            color: var(--accent-nude-dark);
-            margin-top: 2px;
-        }
+  .header-titles p {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.05rem;
+    font-style: italic;
+    color: var(--text-muted);
+    margin-top: 2px;
+  }
 
-        /* Focus / Next Journey Banner */
-        .focus-box {
-            background: var(--bg-subtle);
-            border-left: 3px solid var(--accent-nude);
-            border-radius: 8px;
-            padding: 10px 14px;
-            margin-bottom: 16px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
+  .world-badge {
+    background: #FFFFFF;
+    border-radius: 20px;
+    padding: 7px 16px;
+    font-size: 0.8rem;
+    font-weight: 500;
+    color: var(--text-body);
+    box-shadow: 0 2px 6px rgba(0,0,0,0.02);
+    letter-spacing: 0.01em;
+  }
 
-        .focus-label {
-            font-family: 'Outfit', sans-serif;
-            font-size: 0.68rem;
-            letter-spacing: 1.5px;
-            text-transform: uppercase;
-            color: var(--accent-nude-dark);
-            font-weight: 600;
-            white-space: nowrap;
-        }
+  /* METRICS ROW (4 Cards) */
+  .metrics-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+  }
 
-        .focus-input {
-            width: 100%;
-            border: none;
-            outline: none;
-            background: transparent;
-            font-family: 'Cormorant Garamond', serif;
-            font-style: italic;
-            font-size: 1.05rem;
-            color: var(--text-dark);
-        }
+  .metric-card {
+    border-radius: 10px;
+    padding: 16px 12px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid transparent;
+  }
 
-        /* Layout Grid */
-        .planner-grid {
-            display: grid;
-            grid-template-columns: 1.1fr 0.9fr;
-            gap: 16px;
-            margin-bottom: 14px;
-        }
+  .m-visited { background: var(--shade-visited-bg); border-color: var(--shade-visited-border); }
+  .m-next { background: var(--shade-next-bg); border-color: var(--shade-next-border); }
+  .m-wanna { background: var(--shade-wanna-bg); border-color: var(--shade-wanna-border); }
+  .m-revisit { background: var(--shade-revisit-bg); border-color: var(--shade-revisit-border); }
 
-        @media (max-width: 680px) {
-            .planner-grid {
-                grid-template-columns: 1fr;
-            }
-        }
+  .metric-number {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.9rem;
+    font-weight: 600;
+    color: var(--text-title);
+    line-height: 1;
+    margin-bottom: 4px;
+  }
 
-        /* Section Cards */
-        .section-card {
-            background: #FFFFFF;
-            border: 1px solid var(--border-grid);
-            border-radius: 12px;
-            padding: 12px 14px;
-        }
+  .metric-label {
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    color: var(--text-sub);
+    text-transform: uppercase;
+  }
 
-        .section-title {
-            font-family: 'Outfit', sans-serif;
-            font-size: 0.72rem;
-            letter-spacing: 1.8px;
-            text-transform: uppercase;
-            color: var(--accent-nude-dark);
-            font-weight: 600;
-            margin-bottom: 10px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
+  /* NEXT JOURNEY BANNER */
+  .next-journey-card {
+    background: var(--bg-banner);
+    border-radius: 10px;
+    padding: 14px 22px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
 
-        /* Item Lists */
-        .item-list {
-            display: flex;
-            flex-direction: column;
-            gap: 6px;
-            max-height: 250px;
-            overflow-y: auto;
-            padding-right: 2px;
-        }
+  .journey-bracket {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.7rem;
+    color: var(--btn-next);
+    font-weight: 300;
+    line-height: 1;
+  }
 
-        .planner-item {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            padding: 6px 8px;
-            border-radius: 6px;
-            background: #FFFFFF;
-            border: 1px solid var(--border-grid);
-            transition: all 0.15s ease;
-        }
+  .journey-text {
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    color: var(--text-body);
+    text-transform: uppercase;
+    white-space: nowrap;
+  }
 
-        .planner-item:hover {
-            border-color: var(--border-soft);
-            background: var(--bg-subtle);
-        }
+  .journey-destination {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.1rem;
+    font-style: italic;
+    color: var(--text-body);
+    outline: none;
+    border-radius: 4px;
+    padding: 2px 6px;
+    width: 100%;
+    transition: background 0.2s;
+  }
+  .journey-destination:focus { background: #FFFFFF; }
 
-        .planner-text {
-            width: 100%;
-            border: none;
-            outline: none;
-            background: transparent;
-            font-family: 'Alice', serif;
-            font-size: 0.8rem;
-            color: var(--text-dark);
-        }
+  /* 4-COLUMN SHADED BOARD GRID */
+  .board-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 14px;
+  }
 
-        .tag-badge {
-            font-family: 'Outfit', sans-serif;
-            font-size: 0.65rem;
-            color: var(--accent-nude-dark);
-            background: var(--accent-soft-bg);
-            padding: 2px 7px;
-            border-radius: 8px;
-            white-space: nowrap;
-        }
+  .column-card {
+    border-radius: 12px;
+    padding: 18px 14px;
+    display: flex;
+    flex-direction: column;
+    min-height: 420px;
+    border: 1px solid transparent;
+  }
 
-        /* Sub-Input area */
-        .add-box {
-            display: flex;
-            gap: 6px;
-            margin-top: 8px;
-        }
+  /* Section Shading & Borders */
+  .col-visited { background: var(--shade-visited-bg); border-color: var(--shade-visited-border); }
+  .col-next { background: var(--shade-next-bg); border-color: var(--shade-next-border); }
+  .col-wanna { background: var(--shade-wanna-bg); border-color: var(--shade-wanna-border); }
+  .col-revisit { background: var(--shade-revisit-bg); border-color: var(--shade-revisit-border); }
 
-        .add-input {
-            flex: 1;
-            border: 1px solid var(--border-soft);
-            border-radius: 6px;
-            padding: 6px 10px;
-            font-family: 'Alice', serif;
-            font-size: 0.76rem;
-            outline: none;
-            background: #FAF8F5;
-        }
+  .column-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-bottom: 12px;
+    margin-bottom: 10px;
+  }
 
-        .btn-add {
-            background: var(--accent-nude);
-            color: #FFFFFF;
-            border: none;
-            border-radius: 6px;
-            padding: 6px 12px;
-            font-family: 'Alice', serif;
-            font-size: 0.74rem;
-            cursor: pointer;
-            transition: background 0.15s;
-        }
+  .col-title {
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    color: var(--text-title);
+    text-transform: uppercase;
+  }
 
-        .btn-add:hover {
-            background: var(--accent-nude-dark);
-        }
+  .col-badge {
+    font-size: 0.65rem;
+    font-weight: 700;
+    padding: 2px 8px;
+    border-radius: 10px;
+    background: #FFFFFF;
+    color: var(--text-muted);
+    border: 1px solid var(--border-global);
+  }
 
-        .btn-del {
-            background: none;
-            border: none;
-            color: #C2B4AA;
-            cursor: pointer;
-            font-size: 0.72rem;
-            opacity: 0.5;
-            transition: opacity 0.15s;
-        }
+  /* LIST ITEMS */
+  .items-list {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    flex: 1;
+  }
 
-        .planner-item:hover .btn-del {
-            opacity: 1;
-        }
+  .item-row {
+    background: #FFFFFF;
+    border: 1px solid var(--border-global);
+    border-radius: 8px;
+    padding: 8px 10px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    transition: border-color 0.15s, transform 0.15s;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.015);
+  }
+  .item-row:hover {
+    border-color: #D6C8B5;
+    transform: translateY(-1px);
+  }
 
-        .btn-del:hover {
-            color: #A84848;
-        }
+  .item-left {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex: 1;
+    overflow: hidden;
+  }
 
-        /* Footer Bar */
-        .footer-bar {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-top: 10px;
-            padding-top: 8px;
-            border-top: 1px solid var(--border-grid);
-        }
+  .item-flag {
+    font-size: 1.05rem;
+    line-height: 1;
+  }
 
-        .btn-reset {
-            background: none;
-            border: none;
-            color: var(--text-muted);
-            font-family: 'Alice', serif;
-            font-size: 0.72rem;
-            cursor: pointer;
-            transition: color 0.15s;
-        }
+  .item-tag {
+    font-size: 0.68rem;
+    color: var(--text-muted);
+    background: var(--bg-input);
+    border: 1px solid var(--border-input);
+    border-radius: 4px;
+    padding: 2px 6px;
+    white-space: nowrap;
+  }
 
-        .btn-reset:hover {
-            color: var(--accent-nude-dark);
-        }
-    </style>
+  .item-text {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 0.98rem;
+    font-weight: 600;
+    color: var(--text-title);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .btn-delete {
+    background: none;
+    border: none;
+    color: #D3C8BC;
+    font-size: 0.78rem;
+    cursor: pointer;
+    padding: 2px 4px;
+    transition: color 0.15s;
+  }
+  .btn-delete:hover { color: #A85353; }
+
+  /* INPUT FORM ROW */
+  .add-stack {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    margin-top: 14px;
+  }
+
+  .add-inputs-group {
+    display: flex;
+    gap: 6px;
+  }
+
+  .input-tag {
+    width: 65px;
+    background: #FFFFFF;
+    border: 1px solid var(--border-input);
+    border-radius: 6px;
+    padding: 6px 8px;
+    font-family: inherit;
+    font-size: 0.72rem;
+    color: var(--text-body);
+    outline: none;
+  }
+
+  .input-text {
+    flex: 1;
+    background: #FFFFFF;
+    border: 1px solid var(--border-input);
+    border-radius: 6px;
+    padding: 6px 8px;
+    font-family: inherit;
+    font-size: 0.72rem;
+    color: var(--text-body);
+    outline: none;
+  }
+
+  .btn-add {
+    color: #FFFFFF;
+    border: none;
+    border-radius: 6px;
+    padding: 7px 0;
+    font-size: 0.75rem;
+    font-weight: 600;
+    cursor: pointer;
+    text-align: center;
+    transition: opacity 0.15s;
+  }
+  .btn-add:hover { opacity: 0.88; }
+
+  .col-visited .btn-add { background: var(--btn-visited); }
+  .col-next .btn-add { background: var(--btn-next); }
+  .col-wanna .btn-add { background: var(--btn-wanna); }
+  .col-revisit .btn-add { background: var(--btn-revisit); }
+
+  /* FOOTER */
+  .footer-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 4px;
+    padding: 0 4px;
+  }
+
+  .quote-text {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 0.92rem;
+    font-style: italic;
+    color: var(--text-muted);
+  }
+
+  .btn-reset {
+    background: none;
+    border: none;
+    color: var(--text-sub);
+    font-size: 0.75rem;
+    cursor: pointer;
+  }
+  .btn-reset:hover { color: var(--text-title); }
+
+  /* RESPONSIVE */
+  @media (max-width: 980px) {
+    .board-grid { grid-template-columns: repeat(2, 1fr); }
+    .metrics-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (max-width: 580px) {
+    .board-grid { grid-template-columns: 1fr; }
+    .metrics-grid { grid-template-columns: 1fr; }
+    .header-card { flex-direction: column; align-items: flex-start; gap: 10px; }
+  }
+</style>
 </head>
 <body>
 
-<div class="widget-container">
-    <!-- Header Banner -->
-    <div class="header-banner">
-        <div class="header-left">
-            <span class="header-title">TRAVEL ARCHIVE</span>
-            <span class="header-subtitle">Explored Realms, Cities & Cultural Journeys</span>
-        </div>
-        <span class="badge-status" id="worldPctBadge">0.0% of World</span>
-    </div>
+<div class="archive-container">
 
-    <!-- Stats Counter Bar -->
-    <div class="stats-grid">
-        <div class="stat-card">
-            <div class="stat-value" id="visitedCount">0</div>
-            <div class="stat-label">Countries Visited</div>
-        </div>
-        <div class="stat-card">
-            <div class="stat-value" id="wishlistCount">0</div>
-            <div class="stat-label">Wishlist & Intentions</div>
-        </div>
-        <div class="stat-card">
-            <div class="stat-value" id="favoriteCities">195</div>
-            <div class="stat-label">UN World Total</div>
-        </div>
+  <!-- HEADER -->
+  <header class="header-card">
+    <div class="header-titles">
+      <h1>Travel Archive</h1>
+      <p>Explored Realms, Cities & Cultural Journeys</p>
     </div>
+    <div class="world-badge" id="worldPercentage">0% of World</div>
+  </header>
 
-    <!-- Next Destination / Anchor -->
-    <div class="focus-box">
-        <span class="focus-label">Next Journey</span>
-        <input type="text" id="nextJourney" class="focus-input" placeholder="Istanbul, Bosphorus tea gardens & historic district exploration..." onchange="saveTravelData()">
+  <!-- METRICS ROW -->
+  <section class="metrics-grid">
+    <div class="metric-card m-visited">
+      <div class="metric-number" id="mVisited">0</div>
+      <div class="metric-label">Visited</div>
     </div>
+    <div class="metric-card m-next">
+      <div class="metric-number" id="mNext">0</div>
+      <div class="metric-label">Next Trip</div>
+    </div>
+    <div class="metric-card m-wanna">
+      <div class="metric-number" id="mWanna">0</div>
+      <div class="metric-label">Wanna Visit</div>
+    </div>
+    <div class="metric-card m-revisit">
+      <div class="metric-number" id="mRevisit">0</div>
+      <div class="metric-label">Will Visit Again</div>
+    </div>
+  </section>
 
-    <!-- Main Grid Structure -->
-    <div class="planner-grid">
-        <!-- Visited Countries & Cities -->
-        <div class="section-card">
-            <div class="section-title">
-                <span>Visited Countries & Cities</span>
-                <span style="font-size: 0.65rem; color: var(--text-muted);">Explored</span>
-            </div>
-            <div class="item-list" id="visitedList">
-                <!-- Dynamic Visited Items -->
-            </div>
-            <div class="add-box">
-                <input type="text" id="visitedTagInput" style="width: 60px;" class="add-input" placeholder="Year">
-                <input type="text" id="visitedInput" class="add-input" placeholder="Country / City..." onkeypress="if(event.key==='Enter') addVisitedCountry()">
-                <button class="btn-add" onclick="addVisitedCountry()">+ Add</button>
-            </div>
+  <!-- EDITABLE NEXT JOURNEY BANNER -->
+  <section class="next-journey-card">
+    <span class="journey-bracket">(</span>
+    <span class="journey-text">Next Journey</span>
+    <span class="journey-destination" id="nextJourneyText" contenteditable="true" onblur="saveNextJourney(this.innerText)">
+      Istanbul — Tea at Setüstü Çay Bahçesi & historic palaces
+    </span>
+  </section>
+
+  <!-- 4-COLUMN BOARD GRID WITH DISTINCT SHADES -->
+  <main class="board-grid">
+
+    <!-- 1. VISITED -->
+    <section class="column-card col-visited">
+      <div class="column-header">
+        <span class="col-title">Visited</span>
+        <span class="col-badge" id="badge-visited">0</span>
+      </div>
+      <div class="items-list" id="list-visited"></div>
+      
+      <div class="add-stack">
+        <div class="add-inputs-group">
+          <input type="text" class="input-tag" id="tag-visited" placeholder="Year">
+          <input type="text" class="input-text" id="text-visited" placeholder="Country / City..." onkeypress="handleKey(event, 'visited')">
         </div>
+        <button class="btn-add" onclick="addItem('visited')">+ Add Visited</button>
+      </div>
+    </section>
 
-        <!-- Travel Wishlist & Intentions -->
-        <div class="section-card">
-            <div class="section-title">
-                <span>Bucket List & Intentions</span>
-                <span style="font-size: 0.65rem; color: var(--text-muted);">Future Voyages</span>
-            </div>
-            <div class="item-list" id="wishlistList">
-                <!-- Dynamic Wishlist Items -->
-            </div>
-            <div class="add-box">
-                <input type="text" id="wishlistTagInput" style="width: 60px;" class="add-input" placeholder="Season">
-                <input type="text" id="wishlistInput" class="add-input" placeholder="Destination..." onkeypress="if(event.key==='Enter') addWishlistCountry()">
-                <button class="btn-add" onclick="addWishlistCountry()">+ Add</button>
-            </div>
+    <!-- 2. NEXT TRIP -->
+    <section class="column-card col-next">
+      <div class="column-header">
+        <span class="col-title">Next Trip</span>
+        <span class="col-badge" id="badge-next">0</span>
+      </div>
+      <div class="items-list" id="list-next"></div>
+      
+      <div class="add-stack">
+        <div class="add-inputs-group">
+          <input type="text" class="input-tag" id="tag-next" placeholder="Date">
+          <input type="text" class="input-text" id="text-next" placeholder="Destination..." onkeypress="handleKey(event, 'next')">
         </div>
-    </div>
+        <button class="btn-add" onclick="addItem('next')">+ Add Next Trip</button>
+      </div>
+    </section>
 
-    <!-- Footer -->
-    <div class="footer-bar">
-        <span style="font-size: 0.68rem; color: var(--text-muted); font-style: italic;">
-            "The world is a book and those who do not travel read only one page."
-        </span>
-        <button class="btn-reset" onclick="resetTravelPlanner()">🔄 reset travel archive</button>
-    </div>
+    <!-- 3. WANNA VISIT -->
+    <section class="column-card col-wanna">
+      <div class="column-header">
+        <span class="col-title">Wanna Visit</span>
+        <span class="col-badge" id="badge-wanna">0</span>
+      </div>
+      <div class="items-list" id="list-wanna"></div>
+      
+      <div class="add-stack">
+        <div class="add-inputs-group">
+          <input type="text" class="input-tag" id="tag-wanna" placeholder="Season">
+          <input type="text" class="input-text" id="text-wanna" placeholder="Wishlist..." onkeypress="handleKey(event, 'wanna')">
+        </div>
+        <button class="btn-add" onclick="addItem('wanna')">+ Add Wishlist</button>
+      </div>
+    </section>
+
+    <!-- 4. WILL VISIT AGAIN -->
+    <section class="column-card col-revisit">
+      <div class="column-header">
+        <span class="col-title">Will Visit Again</span>
+        <span class="col-badge" id="badge-revisit">0</span>
+      </div>
+      <div class="items-list" id="list-revisit"></div>
+      
+      <div class="add-stack">
+        <div class="add-inputs-group">
+          <input type="text" class="input-tag" id="tag-revisit" placeholder="Notes">
+          <input type="text" class="input-text" id="text-revisit" placeholder="Re-visit destination..." onkeypress="handleKey(event, 'revisit')">
+        </div>
+        <button class="btn-add" onclick="addItem('revisit')">+ Add Re-visit</button>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="footer-bar">
+    <div class="quote-text">“The world is a book and those who do not travel read only one page.”</div>
+    <button class="btn-reset" onclick="resetDefaults()">↻ reset travel archive</button>
+  </footer>
+
 </div>
 
 <script>
-    const TOTAL_WORLD_COUNTRIES = 195;
+  const STORAGE_KEY = 'nude_travel_archive_v4';
+  const TOTAL_UN_COUNTRIES = 195;
+  const SECTIONS = ['visited', 'next', 'wanna', 'revisit'];
 
-    const defaultTravelData = {
-        nextJourney: "Istanbul — Tea at Setüstü Çay Bahçesi & historic palaces",
-        visited: [
-            { id: 1, tag: "2023", name: "Turkey (Istanbul, Antalya)" },
-            { id: 2, tag: "2024", name: "China (Shanghai)" },
-            { id: 3, tag: "2024", name: "Macao" },
-            { id: 4, tag: "2025", name: "United Kingdom (London)" },
-            { id: 5, tag: "2025", name: "France (Paris)" }
-        ],
-        wishlist: [
-            { id: 101, tag: "Autumn", name: "Italy (Florence & Amalfi)" },
-            { id: 102, tag: "Spring", name: "Japan (Kyoto & Tokyo)" },
-            { id: 103, tag: "Summer", name: "Switzerland (Interlaken)" }
-        ]
+  // Default Sample Data with Flag Emojis
+  const DEFAULT_DATA = {
+    nextJourney: "Istanbul — Tea at Setüstü Çay Bahçesi & historic palaces",
+    visited: [
+      { id: "v1", flag: "🇹🇷", tag: "2023", text: "Turkey (Istanbul, Antalya)" },
+      { id: "v2", flag: "🇨🇳", tag: "2024", text: "China (Shanghai)" },
+      { id: "v3", flag: "🇲🇴", tag: "2024", text: "Macao" },
+      { id: "v4", flag: "🇬🇧", tag: "2025", text: "United Kingdom (London)" },
+      { id: "v5", flag: "🇫🇷", tag: "2025", text: "France (Paris)" },
+      { id: "v6", flag: "🇮🇹", tag: "2025", text: "Italy (Florence & Amalfi)" },
+      { id: "v7", flag: "🇨🇭", tag: "2026", text: "Switzerland" }
+    ],
+    next: [
+      { id: "n1", flag: "🇹🇷", tag: "Upcoming", text: "Turkey (Istanbul)" }
+    ],
+    wanna: [
+      { id: "w1", flag: "🇯🇵", tag: "Spring", text: "Japan (Kyoto & Tokyo)" },
+      { id: "w2", flag: "🇪🇸", tag: "Autumn", text: "Spain (Barcelona)" }
+    ],
+    revisit: [
+      { id: "r1", flag: "🇦🇪", tag: "Soon", text: "United Arab Emirates" },
+      { id: "r2", flag: "🇨🇳", tag: "Favorite", text: "China (Shanghai)" }
+    ]
+  };
+
+  let store = JSON.parse(localStorage.getItem(STORAGE_KEY)) || DEFAULT_DATA;
+
+  // Auto detect flag emojis from text
+  function detectFlag(text) {
+    const map = {
+      "turkey": "🇹🇷", "china": "🇨🇳", "macao": "🇲🇴", "macau": "🇲🇴",
+      "united kingdom": "🇬🇧", "uk": "🇬🇧", "london": "🇬🇧", "england": "🇬🇧",
+      "france": "🇫🇷", "paris": "🇫🇷", "italy": "🇮🇹", "rome": "🇮🇹",
+      "switzerland": "🇨🇭", "japan": "🇯🇵", "tokyo": "🇯🇵", "kyoto": "🇯🇵",
+      "united arab emirates": "🇦🇪", "uae": "🇦🇪", "dubai": "🇦🇪",
+      "spain": "🇪🇸", "greece": "🇬🇷", "portugal": "🇵🇹", "usa": "🇺🇸",
+      "united states": "🇺🇸", "thailand": "🇹🇭", "indonesia": "🇮🇩", "bali": "🇮🇩"
     };
+    const lower = text.toLowerCase();
+    for (let key in map) {
+      if (lower.includes(key)) return map[key];
+    }
+    return "📍";
+  }
 
-    function loadTravelData() {
-        try {
-            const saved = localStorage.getItem('quiet_luxury_travel_v1');
-            return saved ? JSON.parse(saved) : defaultTravelData;
-        } catch (e) {
-            return defaultTravelData;
-        }
+  function saveStore() {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(store));
+    render();
+  }
+
+  function render() {
+    // 1. Next Journey Text
+    const nextElem = document.getElementById('nextJourneyText');
+    if (document.activeElement !== nextElem) {
+      nextElem.innerText = store.nextJourney || "Add next trip details...";
     }
 
-    let travelData = loadTravelData();
+    // 2. Render Columns & Badges
+    SECTIONS.forEach(sec => {
+      const listElem = document.getElementById(`list-${sec}`);
+      listElem.innerHTML = '';
 
-    function saveTravelData() {
-        travelData.nextJourney = document.getElementById('nextJourney').value;
-        try {
-            localStorage.setItem('quiet_luxury_travel_v1', JSON.stringify(travelData));
-        } catch (e) {}
-        updateStats();
+      const items = store[sec] || [];
+      document.getElementById(`badge-${sec}`).innerText = items.length;
+      document.getElementById(`m${sec.charAt(0).toUpperCase() + sec.slice(1)}`).innerText = items.length;
+
+      items.forEach(item => {
+        const row = document.createElement('div');
+        row.className = 'item-row';
+        row.innerHTML = `
+          <div class="item-left">
+            <span class="item-flag">${item.flag || '📍'}</span>
+            ${item.tag ? `<span class="item-tag">${escapeHtml(item.tag)}</span>` : ''}
+            <span class="item-text">${escapeHtml(item.text)}</span>
+          </div>
+          <button class="btn-delete" onclick="deleteItem('${sec}', '${item.id}')">✕</button>
+        `;
+        listElem.appendChild(row);
+      });
+    });
+
+    // 3. Calculate World Percentage (Visited + Will Visit Again unique count)
+    const totalVisitedCount = (store.visited ? store.visited.length : 0);
+    const percentage = ((totalVisitedCount / TOTAL_UN_COUNTRIES) * 100).toFixed(1);
+    document.getElementById('worldPercentage').innerText = `${percentage}% of World`;
+  }
+
+  function addItem(sec) {
+    const tagInput = document.getElementById(`tag-${sec}`);
+    const textInput = document.getElementById(`text-${sec}`);
+
+    const tag = tagInput.value.trim();
+    const text = textInput.value.trim();
+
+    if (!text) return;
+
+    const flag = detectFlag(text);
+
+    if (!store[sec]) store[sec] = [];
+    store[sec].push({
+      id: Date.now().toString(),
+      flag: flag,
+      tag: tag || (sec === 'visited' ? '2026' : 'Planned'),
+      text: text
+    });
+
+    tagInput.value = '';
+    textInput.value = '';
+
+    saveStore();
+  }
+
+  function handleKey(event, sec) {
+    if (event.key === 'Enter') addItem(sec);
+  }
+
+  function deleteItem(sec, id) {
+    store[sec] = store[sec].filter(x => x.id !== id);
+    saveStore();
+  }
+
+  function saveNextJourney(text) {
+    store.nextJourney = text.trim();
+    saveStore();
+  }
+
+  function resetDefaults() {
+    if (confirm("Reset Travel Archive to default sample list?")) {
+      store = JSON.parse(JSON.stringify(DEFAULT_DATA));
+      saveStore();
     }
+  }
 
-    function updateStats() {
-        const count = travelData.visited.length;
-        const wishCount = travelData.wishlist.length;
-        const pct = ((count / TOTAL_WORLD_COUNTRIES) * 100).toFixed(1);
+  function escapeHtml(str) {
+    return str.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
+  }
 
-        document.getElementById('visitedCount').innerText = count;
-        document.getElementById('wishlistCount').innerText = wishCount;
-        document.getElementById('worldPctBadge').innerText = `${pct}% of World`;
-    }
-
-    function renderVisited() {
-        const container = document.getElementById('visitedList');
-        container.innerHTML = '';
-
-        travelData.visited.forEach(item => {
-            const div = document.createElement('div');
-            div.className = 'planner-item';
-            div.innerHTML = `
-                <span class="tag-badge">${item.tag || 'Visited'}</span>
-                <input type="text" class="planner-text" value="${item.name}" onchange="updateVisitedName(${item.id}, this.value)">
-                <button class="btn-del" onclick="deleteVisited(${item.id})">✕</button>
-            `;
-            container.appendChild(div);
-        });
-    }
-
-    function addVisitedCountry() {
-        const tagInput = document.getElementById('visitedTagInput');
-        const nameInput = document.getElementById('visitedInput');
-        const name = nameInput.value.trim();
-        const tag = tagInput.value.trim();
-
-        if (!name) return;
-
-        travelData.visited.push({
-            id: Date.now(),
-            tag: tag || 'Visited',
-            name: name
-        });
-
-        nameInput.value = '';
-        tagInput.value = '';
-        saveTravelData();
-        renderVisited();
-    }
-
-    function updateVisitedName(id, newName) {
-        const item = travelData.visited.find(v => v.id === id);
-        if (item && newName.trim()) {
-            item.name = newName.trim();
-            saveTravelData();
-        }
-    }
-
-    function deleteVisited(id) {
-        travelData.visited = travelData.visited.filter(v => v.id !== id);
-        saveTravelData();
-        renderVisited();
-    }
-
-    function renderWishlist() {
-        const container = document.getElementById('wishlistList');
-        container.innerHTML = '';
-
-        travelData.wishlist.forEach(item => {
-            const div = document.createElement('div');
-            div.className = 'planner-item';
-            div.innerHTML = `
-                <span class="tag-badge">${item.tag || 'Wish'}</span>
-                <input type="text" class="planner-text" value="${item.name}" onchange="updateWishlistName(${item.id}, this.value)">
-                <button class="btn-del" onclick="deleteWishlist(${item.id})">✕</button>
-            `;
-            container.appendChild(div);
-        });
-    }
-
-    function addWishlistCountry() {
-        const tagInput = document.getElementById('wishlistTagInput');
-        const nameInput = document.getElementById('wishlistInput');
-        const name = nameInput.value.trim();
-        const tag = tagInput.value.trim();
-
-        if (!name) return;
-
-        travelData.wishlist.push({
-            id: Date.now(),
-            tag: tag || 'Wish',
-            name: name
-        });
-
-        nameInput.value = '';
-        tagInput.value = '';
-        saveTravelData();
-        renderWishlist();
-    }
-
-    function updateWishlistName(id, newName) {
-        const item = travelData.wishlist.find(w => w.id === id);
-        if (item && newName.trim()) {
-            item.name = newName.trim();
-            saveTravelData();
-        }
-    }
-
-    function deleteWishlist(id) {
-        travelData.wishlist = travelData.wishlist.filter(w => w.id !== id);
-        saveTravelData();
-        renderWishlist();
-    }
-
-    function resetTravelPlanner() {
-        if (confirm("Reset travel archive to default?")) {
-            travelData = JSON.parse(JSON.stringify(defaultTravelData));
-            saveTravelData();
-            initData();
-        }
-    }
-
-    function initData() {
-        document.getElementById('nextJourney').value = travelData.nextJourney || '';
-        renderVisited();
-        renderWishlist();
-        updateStats();
-    }
-
-    // Initialize
-    initData();
+  // Initial Execution
+  render();
 </script>
-
 </body>
 </html>
