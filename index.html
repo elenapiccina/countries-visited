@@ -199,7 +199,6 @@
     border: 1px solid transparent;
   }
 
-  /* Section Shading & Borders */
   .col-visited { background: var(--shade-visited-bg); border-color: var(--shade-visited-border); }
   .col-next { background: var(--shade-next-bg); border-color: var(--shade-next-border); }
   .col-wanna { background: var(--shade-wanna-bg); border-color: var(--shade-wanna-border); }
@@ -383,7 +382,6 @@
   }
   .btn-reset:hover { color: var(--text-title); }
 
-  /* RESPONSIVE */
   @media (max-width: 980px) {
     .board-grid { grid-template-columns: repeat(2, 1fr); }
     .metrics-grid { grid-template-columns: repeat(2, 1fr); }
@@ -507,11 +505,54 @@
 </div>
 
 <script>
-  const STORAGE_KEY = 'nude_travel_archive_v5';
+  const STORAGE_KEY = 'nude_travel_archive_v6';
   const TOTAL_UN_COUNTRIES = 195;
   const SECTIONS = ['visited', 'next', 'wanna', 'revisit'];
 
-  // Default Sample Data without Years
+  // COMPLETE WORLD COUNTRY & MAJOR CITY ISO LOOKUP DICTIONARY (195 UN COUNTRIES)
+  const ISO_MAP = {
+    "afghanistan":"AF","albania":"AL","algeria":"DZ","andorra":"AD","angola":"AO","antigua":"AG","barbuda":"AG",
+    "argentina":"AR","armenia":"AM","australia":"AU","austria":"AT","vienna":"AT","azerbaijan":"AZ","baku":"AZ",
+    "bahamas":"BS","bahrain":"BH","bangladesh":"BD","barbados":"BB","belarus":"BY","belgium":"BE","brussels":"BE",
+    "belize":"BZ","benin":"BJ","bhutan":"BT","bolivia":"BO","bosnia":"BA","herzegovina":"BA","botswana":"BW",
+    "brazil":"BR","rio":"BR","brunei":"BN","bulgaria":"BG","burkina faso":"BF","burundi":"BI","cambodia":"KH",
+    "cameroon":"CM","canada":"CA","toronto":"CA","cape verde":"CV","central african republic":"CF","chad":"TD",
+    "chile":"CL","china":"CN","shanghai":"CN","beijing":"CN","colombia":"CO","comoros":"KM","congo":"CG",
+    "costa rica":"CR","croatia":"HR","cuba":"CU","cyprus":"CY","czech":"CZ","czechia":"CZ","prague":"CZ",
+    "denmark":"DK","copenhagen":"DK","djibouti":"DJ","dominica":"DM","dominican republic":"DO","ecuador":"EC",
+    "egypt":"EG","cairo":"EG","el salvador":"SV","equatorial guinea":"GQ","eritrea":"ER","estonia":"EE","tallinn":"EE",
+    "eswatini":"SZ","swaziland":"SZ","ethiopia":"ET","fiji":"FJ","finland":"FI","helsinki":"FI","france":"FR",
+    "paris":"FR","gabon":"GA","gambia":"GM","georgia":"GE","germany":"DE","berlin":"DE","munich":"DE","ghana":"GH",
+    "greece":"GR","athens":"GR","grenada":"GD","guatemala":"GT","guinea":"GN","guinea-bissau":"GW","guyana":"GY",
+    "haiti":"HT","honduras":"HN","hungary":"HU","budapest":"HU","iceland":"IS","reykjavik":"IS","india":"IN",
+    "delhi":"IN","mumbai":"IN","indonesia":"ID","bali":"ID","iran":"IR","iraq":"IQ","ireland":"IE","dublin":"IE",
+    "israel":"IL","italy":"IT","rome":"IT","florence":"IT","milan":"IT","amalfi":"IT","venice":"IT","jamaica":"JM",
+    "japan":"JP","tokyo":"JP","kyoto":"JP","jordan":"JO","kazakhstan":"KZ","kenya":"KE","kiribati":"KI",
+    "korea":"KR","south korea":"KR","seoul":"KR","north korea":"KP","kuwait":"KW","kyrgyzstan":"KG","laos":"LA",
+    "latvia":"LV","riga":"LV","lebanon":"LB","beirut":"LB","lesotho":"LS","liberia":"LR","libya":"LY",
+    "liechtenstein":"LI","lithuania":"LT","vassal":"LT","luxembourg":"LU","macao":"MO","macau":"MO",
+    "madagascar":"MG","malawi":"MW","malaysia":"MY","kuala lumpur":"MY","maldives":"MV","mali":"ML","malta":"MT",
+    "marshall islands":"MH","mauritania":"MR","mauritius":"MU","mexico":"MX","cancun":"MX","micronesia":"FM",
+    "moldova":"MD","monaco":"MC","mongolia":"MN","montenegro":"ME","morocco":"MA","marrakech":"MA","mozambique":"MZ",
+    "myanmar":"MM","namibia":"NA","nauru":"NR","nepal":"NP","netherlands":"NL","amsterdam":"NL","new zealand":"NZ",
+    "nicaragua":"NI","niger":"NE","nigeria":"NG","north macedonia":"MK","norway":"NO","oslo":"NO","oman":"OM",
+    "pakistan":"PK","palau":"PW","palestine":"PS","panama":"PA","papua new guinea":"PG","paraguay":"PY",
+    "peru":"PE","philippines":"PH","manila":"PH","poland":"PL","warsaw":"PL","krakow":"PL","portugal":"PT",
+    "lisbon":"PT","qatar":"QA","doha":"QA","romania":"RO","russia":"RU","moscow":"RU","petersburg":"RU","rwanda":"RW",
+    "saint kitts":"KN","saint lucia":"LC","saint vincent":"VC","samoa":"WS","san marino":"SM","sao tome":"ST",
+    "saudi arabia":"SA","riyadh":"SA","senegal":"SN","serbia":"RS","belgrade":"RS","seychelles":"SC",
+    "sierra leone":"SL","singapore":"SG","slovakia":"SK","slovenia":"SI","solomon islands":"SB","somalia":"SO",
+    "south africa":"ZA","cape town":"ZA","south sudan":"SS","spain":"ES","barcelona":"ES","madrid":"ES",
+    "sri lanka":"LK","sudan":"SD","suriname":"SR","sweden":"SE","stockholm":"SE","switzerland":"CH","zurich":"CH",
+    "syria":"SY","taiwan":"TW","taipei":"TW","tajikistan":"TJ","tanzania":"TZ","zanzibar":"TZ","thailand":"TH",
+    "bangkok":"TH","phuket":"TH","timor-leste":"TL","togo":"TG","tonga":"TO","trinidad":"TT","tobago":"TT",
+    "tunisia":"TN","turkey":"TR","turkiye":"TR","istanbul":"TR","antalya":"TR","turkmenistan":"TM","tuvalu":"TV",
+    "uganda":"UG","ukraine":"UA","kyiv":"UA","united arab emirates":"AE","uae":"AE","dubai":"AE","abu dhabi":"AE",
+    "united kingdom":"GB","uk":"GB","england":"GB","london":"GB","scotland":"GB","wales":"GB","united states":"US",
+    "usa":"US","america":"US","new york":"US","california":"US","uruguay":"UY","uzbekistan":"UZ","tashkent":"UZ",
+    "vanuatu":"VU","vatican":"VA","venezuela":"VE","vietnam":"VN","hanoi":"VN","yemen":"YE","zambia":"ZM","zimbabwe":"ZW"
+  };
+
   const DEFAULT_DATA = {
     nextJourney: "Istanbul — Tea at Setüstü Çay Bahçesi & historic palaces",
     visited: [
@@ -539,21 +580,33 @@
   let draggedItemId = null;
   let sourceSec = null;
 
-  // Auto detect flag emojis from country/city text
+  // Converts ISO Alpha-2 string into Unicode Flag Emoji
+  function isoToEmoji(code) {
+    return code
+      .toUpperCase()
+      .replace(/./g, char => String.fromCodePoint(char.charCodeAt(0) + 127397));
+  }
+
+  // Detects Flag Emojis dynamically from country text or direct emoji inputs
   function detectFlag(text) {
-    const map = {
-      "turkey": "🇹🇷", "china": "🇨🇳", "macao": "🇲🇴", "macau": "🇲🇴",
-      "united kingdom": "🇬🇧", "uk": "🇬🇧", "london": "🇬🇧", "england": "🇬🇧",
-      "france": "🇫🇷", "paris": "🇫🇷", "italy": "🇮🇹", "rome": "🇮🇹",
-      "switzerland": "🇨🇭", "japan": "🇯🇵", "tokyo": "🇯🇵", "kyoto": "🇯🇵",
-      "united arab emirates": "🇦🇪", "uae": "🇦🇪", "dubai": "🇦🇪",
-      "spain": "🇪🇸", "barcelona": "🇪🇸", "greece": "🇬🇷", "portugal": "🇵🇹",
-      "usa": "🇺🇸", "united states": "🇺🇸", "thailand": "🇹🇭", "indonesia": "🇮🇩", "bali": "🇮🇩"
-    };
-    const lower = text.toLowerCase();
-    for (let key in map) {
-      if (lower.includes(key)) return map[key];
+    if (!text) return "📍";
+
+    // 1. Direct Emoji Check (If user pasted/typed a flag emoji directly)
+    const emojiRegex = /\p{Extended_Pictographic}/u;
+    const match = text.match(emojiRegex);
+    if (match) return match[0];
+
+    // 2. Exact match check
+    const lower = text.toLowerCase().trim();
+    if (ISO_MAP[lower]) return isoToEmoji(ISO_MAP[lower]);
+
+    // 3. Word match/Substring check across ISO dictionary
+    for (let key in ISO_MAP) {
+      if (lower.includes(key)) {
+        return isoToEmoji(ISO_MAP[key]);
+      }
     }
+
     return "📍";
   }
 
@@ -597,14 +650,12 @@
           <button class="btn-delete" onclick="deleteItem('${sec}', '${item.id}')">✕</button>
         `;
 
-        // Attach Drag Events
         attachItemDragEvents(row, sec, item.id);
         listElem.appendChild(row);
       });
     });
 
-    // 3. Accurate World Percentage Calculation
-    // Calculates unique visited countries across both 'Visited' and 'Will Visit Again' sections
+    // 3. Calculate Unique Countries Visited Percentage
     const visitedSet = new Set();
     [...(store.visited || []), ...(store.revisit || [])].forEach(item => {
       const cleanedName = item.text.replace(/\(.*\)/, '').trim().toLowerCase();
@@ -673,7 +724,7 @@
     const item = store[sec].find(x => x.id === id);
     if (item) {
       item.text = newText.trim();
-      item.flag = detectFlag(item.text); // auto-update flag if country changes
+      item.flag = detectFlag(item.text); // Automatically recalculates flag when text changes
       saveStore();
     }
   }
