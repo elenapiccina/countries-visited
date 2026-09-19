@@ -21,29 +21,25 @@
     --text-muted: #887C70;
     --text-sub: #A09384;
     
-    /* 4 Distinct Nude Shades */
+    /* 4 Distinct Aesthetic Nude Shades */
     --shade-visited-bg: #F8F4EE;
     --shade-visited-border: #E8DFC3;
-    --shade-visited-pill: #EEE6D8;
     --btn-visited: #B09D8B;
 
     --shade-next-bg: #F3EFE6;
     --shade-next-border: #E3D9C8;
-    --shade-next-pill: #E7DDCB;
     --btn-next: #A4907C;
 
     --shade-wanna-bg: #EDE6D9;
     --shade-wanna-border: #DDD0BC;
-    --shade-wanna-pill: #E1D3C0;
     --btn-wanna: #98836E;
 
     --shade-revisit-bg: #E7DCDB;
     --shade-revisit-border: #D7C6C5;
-    --shade-revisit-pill: #DAC7C6;
     --btn-revisit: #8F7675;
 
     --bg-banner: #EFE7DB;
-    --bg-input: #FAF8F5;
+    --bg-input: #FFFFFF;
     --border-input: #E2D7C7;
   }
 
@@ -101,7 +97,7 @@
     border-radius: 20px;
     padding: 7px 16px;
     font-size: 0.8rem;
-    font-weight: 500;
+    font-weight: 600;
     color: var(--text-body);
     box-shadow: 0 2px 6px rgba(0,0,0,0.02);
     letter-spacing: 0.01em;
@@ -235,12 +231,21 @@
     border: 1px solid var(--border-global);
   }
 
-  /* LIST ITEMS */
+  /* LIST ITEMS & DRAG DROP */
   .items-list {
     display: flex;
     flex-direction: column;
     gap: 8px;
     flex: 1;
+    min-height: 250px;
+    border-radius: 8px;
+    padding: 4px;
+    transition: background 0.2s ease;
+  }
+
+  .items-list.drag-over {
+    background: rgba(0, 0, 0, 0.03);
+    border: 1px dashed var(--text-sub);
   }
 
   .item-row {
@@ -251,12 +256,23 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    transition: border-color 0.15s, transform 0.15s;
+    gap: 8px;
+    transition: border-color 0.15s, transform 0.15s, opacity 0.15s;
     box-shadow: 0 2px 6px rgba(0,0,0,0.015);
+    cursor: grab;
   }
+  .item-row:active { cursor: grabbing; }
+  .item-row.dragging { opacity: 0.35; }
   .item-row:hover {
     border-color: #D6C8B5;
     transform: translateY(-1px);
+  }
+
+  .drag-handle {
+    color: #C5BCB0;
+    font-size: 0.75rem;
+    user-select: none;
+    cursor: grab;
   }
 
   .item-left {
@@ -270,26 +286,26 @@
   .item-flag {
     font-size: 1.05rem;
     line-height: 1;
-  }
-
-  .item-tag {
-    font-size: 0.68rem;
-    color: var(--text-muted);
-    background: var(--bg-input);
-    border: 1px solid var(--border-input);
-    border-radius: 4px;
-    padding: 2px 6px;
-    white-space: nowrap;
+    user-select: none;
   }
 
   .item-text {
     font-family: 'Cormorant Garamond', serif;
-    font-size: 0.98rem;
+    font-size: 1.05rem;
     font-weight: 600;
     color: var(--text-title);
+    flex: 1;
+    outline: none;
+    border-radius: 4px;
+    padding: 1px 4px;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+  }
+  .item-text:focus {
+    background: #FAF8F5;
+    white-space: normal;
+    text-overflow: clip;
   }
 
   .btn-delete {
@@ -306,26 +322,8 @@
   /* INPUT FORM ROW */
   .add-stack {
     display: flex;
-    flex-direction: column;
     gap: 6px;
     margin-top: 14px;
-  }
-
-  .add-inputs-group {
-    display: flex;
-    gap: 6px;
-  }
-
-  .input-tag {
-    width: 65px;
-    background: #FFFFFF;
-    border: 1px solid var(--border-input);
-    border-radius: 6px;
-    padding: 6px 8px;
-    font-family: inherit;
-    font-size: 0.72rem;
-    color: var(--text-body);
-    outline: none;
   }
 
   .input-text {
@@ -333,22 +331,24 @@
     background: #FFFFFF;
     border: 1px solid var(--border-input);
     border-radius: 6px;
-    padding: 6px 8px;
+    padding: 8px 10px;
     font-family: inherit;
-    font-size: 0.72rem;
+    font-size: 0.78rem;
     color: var(--text-body);
     outline: none;
   }
+  .input-text::placeholder { color: #B5AA9C; }
 
   .btn-add {
     color: #FFFFFF;
     border: none;
     border-radius: 6px;
-    padding: 7px 0;
+    padding: 0 14px;
     font-size: 0.75rem;
     font-weight: 600;
     cursor: pointer;
     text-align: center;
+    white-space: nowrap;
     transition: opacity 0.15s;
   }
   .btn-add:hover { opacity: 0.88; }
@@ -405,7 +405,7 @@
       <h1>Travel Archive</h1>
       <p>Explored Realms, Cities & Cultural Journeys</p>
     </div>
-    <div class="world-badge" id="worldPercentage">0% of World</div>
+    <div class="world-badge" id="worldPercentage">0.0% of World</div>
   </header>
 
   <!-- METRICS ROW -->
@@ -437,7 +437,7 @@
     </span>
   </section>
 
-  <!-- 4-COLUMN BOARD GRID WITH DISTINCT SHADES -->
+  <!-- 4-COLUMN BOARD GRID -->
   <main class="board-grid">
 
     <!-- 1. VISITED -->
@@ -446,14 +446,11 @@
         <span class="col-title">Visited</span>
         <span class="col-badge" id="badge-visited">0</span>
       </div>
-      <div class="items-list" id="list-visited"></div>
+      <div class="items-list" id="list-visited" data-sec="visited"></div>
       
       <div class="add-stack">
-        <div class="add-inputs-group">
-          <input type="text" class="input-tag" id="tag-visited" placeholder="Year">
-          <input type="text" class="input-text" id="text-visited" placeholder="Country / City..." onkeypress="handleKey(event, 'visited')">
-        </div>
-        <button class="btn-add" onclick="addItem('visited')">+ Add Visited</button>
+        <input type="text" class="input-text" id="text-visited" placeholder="Country / City..." onkeypress="handleKey(event, 'visited')">
+        <button class="btn-add" onclick="addItem('visited')">+ Add</button>
       </div>
     </section>
 
@@ -463,14 +460,11 @@
         <span class="col-title">Next Trip</span>
         <span class="col-badge" id="badge-next">0</span>
       </div>
-      <div class="items-list" id="list-next"></div>
+      <div class="items-list" id="list-next" data-sec="next"></div>
       
       <div class="add-stack">
-        <div class="add-inputs-group">
-          <input type="text" class="input-tag" id="tag-next" placeholder="Date">
-          <input type="text" class="input-text" id="text-next" placeholder="Destination..." onkeypress="handleKey(event, 'next')">
-        </div>
-        <button class="btn-add" onclick="addItem('next')">+ Add Next Trip</button>
+        <input type="text" class="input-text" id="text-next" placeholder="Destination..." onkeypress="handleKey(event, 'next')">
+        <button class="btn-add" onclick="addItem('next')">+ Add</button>
       </div>
     </section>
 
@@ -480,14 +474,11 @@
         <span class="col-title">Wanna Visit</span>
         <span class="col-badge" id="badge-wanna">0</span>
       </div>
-      <div class="items-list" id="list-wanna"></div>
+      <div class="items-list" id="list-wanna" data-sec="wanna"></div>
       
       <div class="add-stack">
-        <div class="add-inputs-group">
-          <input type="text" class="input-tag" id="tag-wanna" placeholder="Season">
-          <input type="text" class="input-text" id="text-wanna" placeholder="Wishlist..." onkeypress="handleKey(event, 'wanna')">
-        </div>
-        <button class="btn-add" onclick="addItem('wanna')">+ Add Wishlist</button>
+        <input type="text" class="input-text" id="text-wanna" placeholder="Wishlist..." onkeypress="handleKey(event, 'wanna')">
+        <button class="btn-add" onclick="addItem('wanna')">+ Add</button>
       </div>
     </section>
 
@@ -497,14 +488,11 @@
         <span class="col-title">Will Visit Again</span>
         <span class="col-badge" id="badge-revisit">0</span>
       </div>
-      <div class="items-list" id="list-revisit"></div>
+      <div class="items-list" id="list-revisit" data-sec="revisit"></div>
       
       <div class="add-stack">
-        <div class="add-inputs-group">
-          <input type="text" class="input-tag" id="tag-revisit" placeholder="Notes">
-          <input type="text" class="input-text" id="text-revisit" placeholder="Re-visit destination..." onkeypress="handleKey(event, 'revisit')">
-        </div>
-        <button class="btn-add" onclick="addItem('revisit')">+ Add Re-visit</button>
+        <input type="text" class="input-text" id="text-revisit" placeholder="Re-visit destination..." onkeypress="handleKey(event, 'revisit')">
+        <button class="btn-add" onclick="addItem('revisit')">+ Add</button>
       </div>
     </section>
 
@@ -519,38 +507,39 @@
 </div>
 
 <script>
-  const STORAGE_KEY = 'nude_travel_archive_v4';
+  const STORAGE_KEY = 'nude_travel_archive_v5';
   const TOTAL_UN_COUNTRIES = 195;
   const SECTIONS = ['visited', 'next', 'wanna', 'revisit'];
 
-  // Default Sample Data with Flag Emojis
+  // Default Sample Data without Years
   const DEFAULT_DATA = {
     nextJourney: "Istanbul — Tea at Setüstü Çay Bahçesi & historic palaces",
     visited: [
-      { id: "v1", flag: "🇹🇷", tag: "2023", text: "Turkey (Istanbul, Antalya)" },
-      { id: "v2", flag: "🇨🇳", tag: "2024", text: "China (Shanghai)" },
-      { id: "v3", flag: "🇲🇴", tag: "2024", text: "Macao" },
-      { id: "v4", flag: "🇬🇧", tag: "2025", text: "United Kingdom (London)" },
-      { id: "v5", flag: "🇫🇷", tag: "2025", text: "France (Paris)" },
-      { id: "v6", flag: "🇮🇹", tag: "2025", text: "Italy (Florence & Amalfi)" },
-      { id: "v7", flag: "🇨🇭", tag: "2026", text: "Switzerland" }
+      { id: "v1", flag: "🇹🇷", text: "Turkey (Istanbul, Antalya)" },
+      { id: "v2", flag: "🇨🇳", text: "China (Shanghai)" },
+      { id: "v3", flag: "🇲🇴", text: "Macao" },
+      { id: "v4", flag: "🇬🇧", text: "United Kingdom (London)" },
+      { id: "v5", flag: "🇫🇷", text: "France (Paris)" },
+      { id: "v6", flag: "🇮🇹", text: "Italy (Florence & Amalfi)" },
+      { id: "v7", flag: "🇨🇭", text: "Switzerland" }
     ],
     next: [
-      { id: "n1", flag: "🇹🇷", tag: "Upcoming", text: "Turkey (Istanbul)" }
+      { id: "n1", flag: "🇹🇷", text: "Turkey (Istanbul)" }
     ],
     wanna: [
-      { id: "w1", flag: "🇯🇵", tag: "Spring", text: "Japan (Kyoto & Tokyo)" },
-      { id: "w2", flag: "🇪🇸", tag: "Autumn", text: "Spain (Barcelona)" }
+      { id: "w1", flag: "🇯🇵", text: "Japan (Kyoto & Tokyo)" },
+      { id: "w2", flag: "🇪🇸", text: "Spain (Barcelona)" }
     ],
     revisit: [
-      { id: "r1", flag: "🇦🇪", tag: "Soon", text: "United Arab Emirates" },
-      { id: "r2", flag: "🇨🇳", tag: "Favorite", text: "China (Shanghai)" }
+      { id: "r1", flag: "🇦🇪", text: "United Arab Emirates" }
     ]
   };
 
   let store = JSON.parse(localStorage.getItem(STORAGE_KEY)) || DEFAULT_DATA;
+  let draggedItemId = null;
+  let sourceSec = null;
 
-  // Auto detect flag emojis from text
+  // Auto detect flag emojis from country/city text
   function detectFlag(text) {
     const map = {
       "turkey": "🇹🇷", "china": "🇨🇳", "macao": "🇲🇴", "macau": "🇲🇴",
@@ -558,8 +547,8 @@
       "france": "🇫🇷", "paris": "🇫🇷", "italy": "🇮🇹", "rome": "🇮🇹",
       "switzerland": "🇨🇭", "japan": "🇯🇵", "tokyo": "🇯🇵", "kyoto": "🇯🇵",
       "united arab emirates": "🇦🇪", "uae": "🇦🇪", "dubai": "🇦🇪",
-      "spain": "🇪🇸", "greece": "🇬🇷", "portugal": "🇵🇹", "usa": "🇺🇸",
-      "united states": "🇺🇸", "thailand": "🇹🇭", "indonesia": "🇮🇩", "bali": "🇮🇩"
+      "spain": "🇪🇸", "barcelona": "🇪🇸", "greece": "🇬🇷", "portugal": "🇵🇹",
+      "usa": "🇺🇸", "united states": "🇺🇸", "thailand": "🇹🇭", "indonesia": "🇮🇩", "bali": "🇮🇩"
     };
     const lower = text.toLowerCase();
     for (let key in map) {
@@ -580,7 +569,7 @@
       nextElem.innerText = store.nextJourney || "Add next trip details...";
     }
 
-    // 2. Render Columns & Badges
+    // 2. Render Lists
     SECTIONS.forEach(sec => {
       const listElem = document.getElementById(`list-${sec}`);
       listElem.innerHTML = '';
@@ -592,29 +581,105 @@
       items.forEach(item => {
         const row = document.createElement('div');
         row.className = 'item-row';
+        row.draggable = true;
+        row.dataset.id = item.id;
+        row.dataset.sec = sec;
+
         row.innerHTML = `
+          <span class="drag-handle">⋮⋮</span>
           <div class="item-left">
             <span class="item-flag">${item.flag || '📍'}</span>
-            ${item.tag ? `<span class="item-tag">${escapeHtml(item.tag)}</span>` : ''}
-            <span class="item-text">${escapeHtml(item.text)}</span>
+            <span class="item-text" 
+                  contenteditable="true" 
+                  onfocus="rowDragDisable(this)"
+                  onblur="rowDragEnable(this); updateItemText('${sec}', '${item.id}', this.innerText)">${escapeHtml(item.text)}</span>
           </div>
           <button class="btn-delete" onclick="deleteItem('${sec}', '${item.id}')">✕</button>
         `;
+
+        // Attach Drag Events
+        attachItemDragEvents(row, sec, item.id);
         listElem.appendChild(row);
       });
     });
 
-    // 3. Calculate World Percentage (Visited + Will Visit Again unique count)
-    const totalVisitedCount = (store.visited ? store.visited.length : 0);
-    const percentage = ((totalVisitedCount / TOTAL_UN_COUNTRIES) * 100).toFixed(1);
+    // 3. Accurate World Percentage Calculation
+    // Calculates unique visited countries across both 'Visited' and 'Will Visit Again' sections
+    const visitedSet = new Set();
+    [...(store.visited || []), ...(store.revisit || [])].forEach(item => {
+      const cleanedName = item.text.replace(/\(.*\)/, '').trim().toLowerCase();
+      if (cleanedName) visitedSet.add(cleanedName);
+    });
+
+    const uniqueVisitedCount = visitedSet.size;
+    const percentage = ((uniqueVisitedCount / TOTAL_UN_COUNTRIES) * 100).toFixed(1);
     document.getElementById('worldPercentage').innerText = `${percentage}% of World`;
   }
 
-  function addItem(sec) {
-    const tagInput = document.getElementById(`tag-${sec}`);
-    const textInput = document.getElementById(`text-${sec}`);
+  /* DRAG AND DROP HANDLERS */
+  function attachItemDragEvents(row, sec, id) {
+    row.addEventListener('dragstart', (e) => {
+      draggedItemId = id;
+      sourceSec = sec;
+      row.classList.add('dragging');
+      e.dataTransfer.effectAllowed = 'move';
+    });
 
-    const tag = tagInput.value.trim();
+    row.addEventListener('dragend', () => {
+      row.classList.remove('dragging');
+      draggedItemId = null;
+      sourceSec = null;
+    });
+  }
+
+  document.querySelectorAll('.items-list').forEach(listElem => {
+    listElem.addEventListener('dragover', (e) => {
+      e.preventDefault();
+      listElem.classList.add('drag-over');
+    });
+
+    listElem.addEventListener('dragleave', () => {
+      listElem.classList.remove('drag-over');
+    });
+
+    listElem.addEventListener('drop', (e) => {
+      e.preventDefault();
+      listElem.classList.remove('drag-over');
+      const targetSec = listElem.dataset.sec;
+
+      if (!draggedItemId || !sourceSec || sourceSec === targetSec) return;
+
+      const itemIdx = store[sourceSec].findIndex(x => x.id === draggedItemId);
+      if (itemIdx > -1) {
+        const [movedItem] = store[sourceSec].splice(itemIdx, 1);
+        store[targetSec].push(movedItem);
+        saveStore();
+      }
+    });
+  });
+
+  function rowDragDisable(elem) {
+    const row = elem.closest('.item-row');
+    if (row) row.draggable = false;
+  }
+
+  function rowDragEnable(elem) {
+    const row = elem.closest('.item-row');
+    if (row) row.draggable = true;
+  }
+
+  /* MODIFY & CRUD FUNCTIONS */
+  function updateItemText(sec, id, newText) {
+    const item = store[sec].find(x => x.id === id);
+    if (item) {
+      item.text = newText.trim();
+      item.flag = detectFlag(item.text); // auto-update flag if country changes
+      saveStore();
+    }
+  }
+
+  function addItem(sec) {
+    const textInput = document.getElementById(`text-${sec}`);
     const text = textInput.value.trim();
 
     if (!text) return;
@@ -625,13 +690,10 @@
     store[sec].push({
       id: Date.now().toString(),
       flag: flag,
-      tag: tag || (sec === 'visited' ? '2026' : 'Planned'),
       text: text
     });
 
-    tagInput.value = '';
     textInput.value = '';
-
     saveStore();
   }
 
@@ -650,7 +712,7 @@
   }
 
   function resetDefaults() {
-    if (confirm("Reset Travel Archive to default sample list?")) {
+    if (confirm("Reset Travel Archive to default state?")) {
       store = JSON.parse(JSON.stringify(DEFAULT_DATA));
       saveStore();
     }
@@ -660,7 +722,7 @@
     return str.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
   }
 
-  // Initial Execution
+  // Initial Run
   render();
 </script>
 </body>
